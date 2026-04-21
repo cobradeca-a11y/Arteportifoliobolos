@@ -36,7 +36,9 @@ function atribuirCamada(n, sabor) {
   /* n: 1=base 2=meio 3=topo → índice = n-1 */
   pedido.camadas[n - 1] = sabor;
   pintar(n, CORES[sabor]);
-  document.getElementById('lbl' + n).textContent = sabor;
+  var lbl = document.getElementById('lbl' + n);
+  lbl.textContent = sabor;
+  lbl.style.color = (sabor === 'Chocolate') ? '#ffffff' : '#3d1c0e';
   document.getElementById('drop-c' + n).classList.add('camada-preenchida');
   document.getElementById('e2').style.display = 'none';
 }
@@ -74,7 +76,9 @@ function resetarMassa() {
   });
   [1, 2, 3].forEach(function(n) {
     pintar(n, CORES.neutro);
-    document.getElementById('lbl' + n).textContent = ['Base','Meio','Topo'][n - 1];
+    var lbl = document.getElementById('lbl' + n);
+    lbl.textContent = ['Base','Meio','Topo'][n - 1];
+    lbl.style.color = '';
     document.getElementById('drop-c' + n).classList.remove('camada-preenchida');
   });
 }

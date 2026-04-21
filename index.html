@@ -191,12 +191,67 @@
 
         <div class="sim-panel" id="p2">
           <div class="sim-label">Sabor da massa</div>
-          <p class="sim-sub">Escolha até 2 sabores</p>
-          <div class="check-group" id="massa-group">
-            <label class="check-item" onclick="toggleCheck(this,'massa',2)"><input type="checkbox"/><div class="check-icon">✓</div>Chocolate</label>
-            <label class="check-item" onclick="toggleCheck(this,'massa',2)"><input type="checkbox"/><div class="check-icon">✓</div>Baunilha</label>
-          </div>
-          <p class="step-error" id="e2">Por favor, selecione ao menos 1 sabor.</p>
+          <p class="sim-sub">Clique ou arraste o sabor para cada camada do bolo</p>
+          <div class="massa-layout">
+
+            <!-- Esquerda: cartões de sabor -->
+            <div class="massa-opcoes">
+              <div class="sabor-card" data-sabor="Chocolate" draggable="true" onclick="clicarSabor('Chocolate')">
+                <span class="sabor-cor" style="background:#6b3520"></span>
+                🍫 Chocolate
+              </div>
+              <div class="sabor-card" data-sabor="Baunilha" draggable="true" onclick="clicarSabor('Baunilha')">
+                <span class="sabor-cor" style="background:#f5e6c8;border:1px solid #cbb896"></span>
+                🍦 Baunilha
+              </div>
+              <p class="massa-instrucao">Selecione um sabor e clique numa camada, ou arraste até ela.</p>
+              <p class="step-error" id="e2">Por favor, defina o sabor de todas as camadas.</p>
+              <button class="btn-reset-massa" onclick="resetarMassa()">↺ Reiniciar</button>
+            </div>
+
+            <!-- Direita: bolo com zonas de drop por camada -->
+            <div class="massa-preview">
+              <div class="cake-preview-label">Monte sua massa</div>
+              <div class="cake-wrap">
+
+                <div class="camada-drop" id="drop-c3" data-camada="3" ondragover="event.preventDefault();this.classList.add('drop-hl')" ondragleave="this.classList.remove('drop-hl')" ondrop="soltarNaCamada(event,3)" onclick="clicarCamada(3)">
+                  <svg viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg" class="camada-svg">
+                    <rect id="cl3" x="5" y="8" width="150" height="32" rx="5" fill="#e0cdb0"/>
+                    <ellipse id="ct3" cx="80" cy="8" rx="75" ry="12" fill="#ecddc0"/>
+                    <ellipse id="cb3" cx="80" cy="40" rx="75" ry="12" fill="#cbb896"/>
+                  </svg>
+                  <span class="camada-label" id="lbl3">Topo</span>
+                </div>
+
+                <div class="camada-drop" id="drop-c2" data-camada="2" ondragover="event.preventDefault();this.classList.add('drop-hl')" ondragleave="this.classList.remove('drop-hl')" ondrop="soltarNaCamada(event,2)" onclick="clicarCamada(2)">
+                  <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg" class="camada-svg camada-svg--m">
+                    <rect id="cl2" x="0" y="8" width="160" height="34" rx="5" fill="#e0cdb0"/>
+                    <ellipse id="ct2" cx="80" cy="8" rx="80" ry="13" fill="#ecddc0"/>
+                    <ellipse id="cb2" cx="80" cy="42" rx="80" ry="13" fill="#cbb896"/>
+                  </svg>
+                  <span class="camada-label" id="lbl2">Meio</span>
+                </div>
+
+                <div class="camada-drop" id="drop-c1" data-camada="1" ondragover="event.preventDefault();this.classList.add('drop-hl')" ondragleave="this.classList.remove('drop-hl')" ondrop="soltarNaCamada(event,1)" onclick="clicarCamada(1)">
+                  <svg viewBox="0 0 160 54" xmlns="http://www.w3.org/2000/svg" class="camada-svg camada-svg--b">
+                    <rect id="cl1" x="-6" y="8" width="172" height="36" rx="5" fill="#e0cdb0"/>
+                    <ellipse id="ct1" cx="80" cy="8" rx="86" ry="14" fill="#ecddc0"/>
+                    <ellipse id="cb1" cx="80" cy="44" rx="86" ry="14" fill="#cbb896"/>
+                  </svg>
+                  <span class="camada-label" id="lbl1">Base</span>
+                </div>
+
+                <!-- velinha no topo -->
+                <svg class="vela-svg" viewBox="0 0 30 36" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="11" y="10" width="8" height="22" rx="4" fill="#f9a8c9"/>
+                  <ellipse cx="15" cy="9" rx="6" ry="8" fill="#ffe066" opacity="0.9"/>
+                  <ellipse cx="15" cy="7" rx="4" ry="6" fill="#ffb700" opacity="0.8"/>
+                </svg>
+
+              </div><!-- /.cake-wrap -->
+            </div><!-- /.massa-preview -->
+
+          </div><!-- /.massa-layout -->
           <div class="sim-nav">
             <button class="btn-sim btn-prev" onclick="goStep(1)">← Voltar</button>
             <button class="btn-sim btn-next" onclick="goStep(3)">Próximo →</button>

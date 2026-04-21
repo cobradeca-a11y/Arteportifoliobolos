@@ -1,152 +1,225 @@
+/* ═══════════════════════════════════════════════════════════
+   MELLO'S CAKES — script.js
+   ═══════════════════════════════════════════════════════════ */
 
 const pedido = {
   tamanho: '',
   fatias: '',
   preco: 0,
-  massa: [],
+  /* camadas[0]=base, [1]=meio, [2]=topo  — null = não definido */
+  camadas: [null, null, null],
   recheio: [],
   cobertura: '',
   acrescimo: false
 };
 
+/* ─── Paleta ──────────────────────────────────────────────── */
+const CORES = {
+  Chocolate: { body: '#5c2d10', top: '#7a3e1a', bottom: '#3e1c08' },
+  Baunilha:  { body: '#f5e0a8', top: '#f9edd6', bottom: '#e0c880' },
+  neutro:    { body: '#d4bfa0', top: '#e2d0b0', bottom: '#bfaa88' }
+};
+
+/* sabor atualmente selecionado no painel esquerdo */
+let saborAtivo = null;
+
+/* ─── Selecionar sabor (clique no card esquerdo) ──────────── */
+function clicarSabor(sabor) {
+  saborAtivo = (saborAtivo === sabor) ? null : sabor;
+  document.querySelectorAll('.sabor-card').forEach(function(c) {
+    c.classList.toggle('sabor-ativo', c.dataset.sabor === saborAtivo);
+  });
+}
+
+/* ─── Atribuir sabor a uma camada (clique ou drop) ─────────── */
+function atribuirCamada(n, sabor) {
+  /* n: 1=base 2=meio 3=topo → índice = n-1 */
+  pedido.camadas[n - 1] = sabor;
+  pintar(n, CORES[sabor]);
+  document.getElementById('lbl' + n).textContent = sabor;
+  document.getElementById('drop-c' + n).classList.add('camada-preenchida');
+  document.getElementById('e2').style.display = 'none';
+}
+
+/* ─── Clique numa camada ──────────────────────────────────── */
+function clicarCamada(n) {
+  if (!saborAtivo) return;
+  atribuirCamada(n, saborAtivo);
+}
+
+/* ─── Drop numa camada ────────────────────────────────────── */
+function soltarNaCamada(event, n) {
+  event.preventDefault();
+  document.getElementById('drop-c' + n).classList.remove('drop-hl');
+  const sabor = event.dataTransfer.getData('text/plain');
+  if (sabor) atribuirCamada(n, sabor);
+}
+
+/* ─── Pintar camada no SVG ────────────────────────────────── */
+function pintar(n, cor) {
+  var rect = document.getElementById('cl' + n);
+  var top  = document.getElementById('ct' + n);
+  var bot  = document.getElementById('cb' + n);
+  if (rect) rect.setAttribute('fill', cor.body);
+  if (top)  top.setAttribute('fill',  cor.top);
+  if (bot)  bot.setAttribute('fill',  cor.bottom);
+}
+
+/* ─── Reiniciar ──────────────────────────────────────────── */
+function resetarMassa() {
+  pedido.camadas = [null, null, null];
+  saborAtivo = null;
+  document.querySelectorAll('.sabor-card').forEach(function(c) {
+    c.classList.remove('sabor-ativo');
+  });
+  [1, 2, 3].forEach(function(n) {
+    pintar(n, CORES.neutro);
+    document.getElementById('lbl' + n).textContent = ['Base','Meio','Topo'][n - 1];
+    document.getElementById('drop-c' + n).classList.remove('camada-preenchida');
+  });
+}
+
+/* ─── Drag start nos cards de sabor ─────────────────────── */
+function initDragDrop() {
+  document.querySelectorAll('.sabor-card[draggable]').forEach(function(card) {
+    card.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text/plain', card.dataset.sabor);
+      card.classList.add('dragging');
+      saborAtivo = card.dataset.sabor;
+      document.querySelectorAll('.sabor-card').forEach(function(c) {
+        c.classList.toggle('sabor-ativo', c.dataset.sabor === saborAtivo);
+      });
+    });
+    card.addEventListener('dragend', function() {
+      card.classList.remove('dragging');
+    });
+  });
+}
+
+/* ─── Lightbox ───────────────────────────────────────────── */
 function openLightbox(item) {
-  const img = item.querySelector('img');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  lightboxImg.src = img.src;
-  lightboxImg.alt = img.alt;
-  lightbox.classList.add('active');
+  var img = item.querySelector('img');
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-img').alt = img.alt;
+  document.getElementById('lightbox').classList.add('active');
 }
-
 function closeLightbox(event) {
-  const lightbox = document.getElementById('lightbox');
   if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
-    lightbox.classList.remove('active');
-  }
-}
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
     document.getElementById('lightbox').classList.remove('active');
   }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active');
 });
 
+/* ─── Tamanho ────────────────────────────────────────────── */
 function selectSize(element, tamanho, preco, fatias) {
-  document.querySelectorAll('.size-card').forEach(card => card.classList.remove('selected'));
+  document.querySelectorAll('.size-card').forEach(function(c) { c.classList.remove('selected'); });
   element.classList.add('selected');
   pedido.tamanho = tamanho;
-  pedido.preco = preco;
-  pedido.fatias = fatias;
+  pedido.preco   = preco;
+  pedido.fatias  = fatias;
   document.getElementById('e1').style.display = 'none';
 }
 
+/* ─── Recheio ────────────────────────────────────────────── */
 function toggleCheck(element, tipo, limite) {
-  const grupoId = tipo === 'massa' ? 'massa-group' : 'recheio-group';
-  const grupo = document.getElementById(grupoId);
-  const selecionados = grupo.querySelectorAll('.check-item.selected');
-
-  if (!element.classList.contains('selected') && selecionados.length >= limite) {
-    return;
-  }
-
+  var grupo = document.getElementById('recheio-group');
+  var sel   = grupo.querySelectorAll('.check-item.selected');
+  if (!element.classList.contains('selected') && sel.length >= limite) return;
   element.classList.toggle('selected');
-  const texto = element.textContent.trim();
-
-  if (tipo === 'massa') {
-    if (element.classList.contains('selected')) {
-      pedido.massa.push(texto);
-    } else {
-      pedido.massa = pedido.massa.filter(item => item !== texto);
-    }
-    document.getElementById('e2').style.display = 'none';
+  /* usa data-recheio para evitar problema de textContent */
+  var texto = element.dataset.recheio || element.textContent.replace('✓','').trim();
+  if (element.classList.contains('selected')) {
+    pedido.recheio.push(texto);
+  } else {
+    pedido.recheio = pedido.recheio.filter(function(i) { return i !== texto; });
   }
-
-  if (tipo === 'recheio') {
-    if (element.classList.contains('selected')) {
-      pedido.recheio.push(texto);
-    } else {
-      pedido.recheio = pedido.recheio.filter(item => item !== texto);
-    }
-    document.getElementById('e3').style.display = 'none';
-    atualizarAcrescimo();
-  }
+  document.getElementById('e3').style.display = 'none';
+  atualizarAcrescimo();
 }
 
-function selectRadio(element, tipo) {
-  const grupoId = tipo === 'cobertura' ? 'cobertura-group' : '';
-  if (!grupoId) return;
-
-  document.querySelectorAll(`#${grupoId} .radio-item`).forEach(item => item.classList.remove('selected'));
+/* ─── Cobertura ──────────────────────────────────────────── */
+function selectRadio(element) {
+  document.querySelectorAll('#cobertura-group .radio-item').forEach(function(i) {
+    i.classList.remove('selected');
+  });
   element.classList.add('selected');
-  pedido.cobertura = element.textContent.trim();
+  pedido.cobertura = element.dataset.cobertura || element.textContent.replace('⭐','').trim();
   document.getElementById('e4').style.display = 'none';
   atualizarAcrescimo();
 }
 
+/* ─── Acréscimo ──────────────────────────────────────────── */
 function atualizarAcrescimo() {
-  const recheioExtra = pedido.recheio.some(item => item.includes('⭐'));
-  const coberturaExtra = pedido.cobertura.includes('⭐');
-  pedido.acrescimo = recheioExtra || coberturaExtra;
+  pedido.acrescimo = pedido.recheio.some(function(i) { return i.includes('⭐'); })
+                  || pedido.cobertura.includes('⭐');
 }
 
+/* ─── Navegação ──────────────────────────────────────────── */
 function goStep(step) {
   if (step === 2 && !pedido.tamanho) {
-    document.getElementById('e1').style.display = 'block';
-    return;
+    document.getElementById('e1').style.display = 'block'; return;
   }
-  if (step === 3 && pedido.massa.length === 0) {
-    document.getElementById('e2').style.display = 'block';
-    return;
+  if (step === 3 && pedido.camadas.some(function(c) { return c === null; })) {
+    document.getElementById('e2').style.display = 'block'; return;
   }
   if (step === 4 && pedido.recheio.length === 0) {
-    document.getElementById('e3').style.display = 'block';
-    return;
+    document.getElementById('e3').style.display = 'block'; return;
   }
   if (step === 5 && !pedido.cobertura) {
-    document.getElementById('e4').style.display = 'block';
-    return;
+    document.getElementById('e4').style.display = 'block'; return;
   }
 
-  document.querySelectorAll('.sim-panel').forEach(panel => panel.classList.remove('active'));
-  document.getElementById(`p${step}`).classList.add('active');
+  document.querySelectorAll('.sim-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('p' + step).classList.add('active');
 
-  document.querySelectorAll('.step-dot').forEach((dot, index) => {
+  document.querySelectorAll('.step-dot').forEach(function(dot, i) {
     dot.classList.remove('active', 'done');
-    const current = index + 1;
-    if (current < step) dot.classList.add('done');
-    if (current === step) dot.classList.add('active');
+    if (i + 1 < step)  dot.classList.add('done');
+    if (i + 1 === step) dot.classList.add('active');
   });
 
-  if (step === 5) {
-    renderResumo();
-  }
+  if (step === 5) renderResumo();
 }
 
-function formatarPreco(valor) {
-  return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+/* ─── Resumo ─────────────────────────────────────────────── */
+function formatarPreco(v) {
+  return 'R$ ' + v.toFixed(2).replace('.', ',');
 }
-
 function renderResumo() {
   atualizarAcrescimo();
-  document.getElementById('r-tamanho').textContent = pedido.tamanho ? `${pedido.tamanho} (${pedido.fatias})` : '—';
-  document.getElementById('r-massa').textContent = pedido.massa.length ? pedido.massa.join(' + ') : '—';
-  document.getElementById('r-recheio').textContent = pedido.recheio.length ? pedido.recheio.join(' + ') : '—';
-  document.getElementById('r-cobertura').textContent = pedido.cobertura || '—';
-  document.getElementById('r-preco').textContent = formatarPreco(pedido.preco);
+  var nomes = ['Base', 'Meio', 'Topo'];
+  var massaTexto = pedido.camadas.map(function(c, i) {
+    return nomes[i] + ': ' + (c || '—');
+  }).join(' | ');
+  document.getElementById('r-tamanho').textContent  = pedido.tamanho ? pedido.tamanho + ' (' + pedido.fatias + ')' : '—';
+  document.getElementById('r-massa').textContent    = massaTexto;
+  document.getElementById('r-recheio').textContent  = pedido.recheio.length ? pedido.recheio.join(' + ') : '—';
+  document.getElementById('r-cobertura').textContent= pedido.cobertura || '—';
+  document.getElementById('r-preco').textContent    = formatarPreco(pedido.preco);
   document.getElementById('r-acrescimo').style.display = pedido.acrescimo ? 'block' : 'none';
 }
 
+/* ─── WhatsApp ───────────────────────────────────────────── */
 function enviarWhats() {
   renderResumo();
-  const mensagem =
-`Olá! Quero fazer um pedido na Mello's Cakes.
-
-*Tamanho:* ${pedido.tamanho} (${pedido.fatias})
-*Massa:* ${pedido.massa.join(' + ')}
-*Recheio:* ${pedido.recheio.join(' + ')}
-*Cobertura:* ${pedido.cobertura}
-*Valor base:* ${formatarPreco(pedido.preco)}${pedido.acrescimo ? '\n*Acréscimo:* Sim, confirmar valor final.' : ''}`;
-
-  const url = `https://wa.me/5521983657626?text=${encodeURIComponent(mensagem)}`;
-  window.open(url, '_blank');
+  var nomes = ['Base', 'Meio', 'Topo'];
+  var massaWpp = pedido.camadas.map(function(c, i) {
+    return nomes[i] + ': ' + (c || '—');
+  }).join(', ');
+  var msg =
+    "Olá! Quero fazer um pedido na Mello's Cakes.\n\n" +
+    "*Tamanho:* " + pedido.tamanho + " (" + pedido.fatias + ")\n" +
+    "*Massa:* " + massaWpp + "\n" +
+    "*Recheio:* " + (pedido.recheio.join(' + ') || '—') + "\n" +
+    "*Cobertura:* " + pedido.cobertura + "\n" +
+    "*Valor base:* " + formatarPreco(pedido.preco) +
+    (pedido.acrescimo ? "\n*Acréscimo:* Sim, confirmar valor final." : "");
+  window.open('https://wa.me/5521983657626?text=' + encodeURIComponent(msg), '_blank');
 }
+
+/* ─── Init ───────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  initDragDrop();
+});

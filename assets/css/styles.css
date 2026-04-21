@@ -91,6 +91,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 .check-item input{display:none;}
 .check-icon{width:18px;height:18px;border-radius:5px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.7rem;}
 .check-item.selected .check-icon{background:var(--choco);border-color:var(--choco);color:white;}
+/* ── Massa step ──────────────────────────────────────────── */
+.massa-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-bottom:1.2rem;}
+.massa-opcoes{display:flex;flex-direction:column;gap:.8rem;}
+/* cards de sabor */
+.sabor-card{display:flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.08);border:2px solid rgba(168,216,200,.3);border-radius:12px;padding:.75rem 1.1rem;cursor:pointer;font-size:.95rem;color:var(--mint-light);font-weight:600;transition:all .2s;user-select:none;}
+.sabor-card:hover{border-color:var(--mint);background:rgba(168,216,200,.1);}
+.sabor-card.sabor-ativo{border-color:var(--mint);background:rgba(168,216,200,.18);box-shadow:0 0 0 3px rgba(168,216,200,.25);}
+.sabor-card.dragging{opacity:.4;transform:scale(.95);}
+.sabor-cor{display:inline-block;width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.massa-instrucao{font-size:.75rem;color:rgba(168,216,200,.6);line-height:1.5;margin-top:.2rem;}
+/* bolo com camadas clicáveis */
+.massa-preview{display:flex;flex-direction:column;align-items:center;gap:0;}
+.cake-preview-label{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mint);opacity:.7;margin-bottom:.6rem;}
+.cake-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;}
+.camada-drop{position:relative;width:100%;cursor:pointer;transition:filter .2s;border-radius:6px;}
+.camada-drop:hover{filter:brightness(1.12);}
+.camada-drop.drop-hl{filter:brightness(1.2);outline:2px dashed var(--mint);}
+.camada-drop.camada-preenchida .camada-label{font-weight:700;color:var(--mint);}
+.camada-svg{display:block;width:100%;height:auto;overflow:visible;}
+.camada-svg rect,.camada-svg ellipse{transition:fill .35s ease;}
+.camada-label{position:absolute;right:-2.8rem;top:50%;transform:translateY(-50%);font-size:.68rem;color:rgba(168,216,200,.6);letter-spacing:.05em;white-space:nowrap;}
+.vela-svg{width:30px;height:auto;margin-top:-4px;display:block;}
+/* btn reset */
+.btn-reset-massa{background:none;border:1.5px solid rgba(168,216,200,.35);color:rgba(168,216,200,.7);border-radius:8px;padding:.4rem .9rem;font-size:.78rem;cursor:pointer;transition:all .2s;align-self:flex-start;letter-spacing:.04em;margin-top:.2rem;}
+.btn-reset-massa:hover{border-color:var(--mint);color:var(--mint);}
 .radio-group{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
 .radio-item{display:flex;align-items:center;gap:.7rem;background:white;border:1.5px solid rgba(168,216,200,.5);border-radius:10px;padding:.7rem 1rem;cursor:pointer;transition:all .2s;font-size:.88rem;color:var(--text);user-select:none;}
 .radio-item:hover{border-color:var(--mint-dark);}
@@ -176,6 +201,9 @@ footer p{color:rgba(253,248,242,.6);font-size:.8rem;}
   .simulador{padding:2rem 1.5rem;}
   .size-cards{grid-template-columns:1fr;}
   .check-group{grid-template-columns:1fr;}
+  .massa-layout{grid-template-columns:1fr;gap:1.2rem;}
+  .massa-preview{order:-1;padding-right:3rem;}
+  .camada-label{right:-2.4rem;font-size:.62rem;}
   .radio-group{grid-template-columns:1fr;}
   .steps{gap:0;}
   .step-dot span{display:none;}

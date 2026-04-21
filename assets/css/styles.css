@@ -77,7 +77,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 .size-card{border:2px solid rgba(168,216,200,.5);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:white;}
 .size-card:hover{border-color:var(--mint-dark);transform:translateY(-3px);}
 .size-card.selected{border-color:var(--choco);background:rgba(61,28,14,.04);}
-.size-card .size-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.size-card .size-icon{font-size:2.5rem;margin-bottom:.5rem;line-height:1;display:block;}
+.size-icon--p{font-size:2rem;}
+.size-icon--m{font-size:3rem;}
+.size-icon--g{font-size:4.2rem;}
 .size-card .size-name{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--choco);font-weight:700;}
 .size-card .size-fatias{font-size:.8rem;color:#8a6a4a;margin:.2rem 0;}
 .size-card .size-price{font-size:1.3rem;font-weight:700;color:var(--choco-mid);margin-top:.5rem;}

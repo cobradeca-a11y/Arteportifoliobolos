@@ -1,0 +1,54 @@
+MELLO'S CAKES — PASSO A PASSO
+
+1) O arquivo principal do site é:
+   mellos_cakes.html
+
+2) Os estilos estão em:
+   assets/css/styles.css
+
+3) O funcionamento do simulador e da galeria está em:
+   assets/js/script.js
+
+4) As imagens do portfólio estão em:
+   assets/img/portfolio/
+
+5) A imagem da seção Sobre está em:
+   assets/img/sobre/morangochocolate.webp
+
+6) A logo usada no hero está em:
+   assets/img/logo/logo-hero.png
+
+COMO ABRIR NO COMPUTADOR
+1. Extraia a pasta.
+2. Abra a pasta no VS Code.
+3. Clique com o botão direito no arquivo mellos_cakes.html
+4. Escolha "Open with Live Server"
+5. O site vai abrir no navegador.
+
+COMO SUBIR PARA O GITHUB
+1. Coloque todos estes arquivos dentro da sua pasta do projeto.
+2. No terminal, dentro da pasta do projeto, rode:
+
+   git add .
+   git commit -m "Atualiza estrutura definitiva do site"
+   git push origin main
+
+O QUE VOCÊ PODE TROCAR COM SEGURANÇA
+- Texto do hero: no arquivo mellos_cakes.html
+- Textos da seção Sobre: no arquivo mellos_cakes.html
+- Número do WhatsApp:
+  procurar por 5521983657626
+- Instagram:
+  procurar por cakes.mellos
+- Cores:
+  no arquivo assets/css/styles.css, bloco :root
+
+SE UMA IMAGEM NÃO APARECER
+Verifique se o nome do arquivo e a pasta estão exatamente assim:
+assets/img/portfolio/nome-da-imagem.webp
+
+NÃO MUDE
+- a estrutura das pastas
+- os nomes dos arquivos sem necessidade
+- os caminhos ./assets/... no HTML
+

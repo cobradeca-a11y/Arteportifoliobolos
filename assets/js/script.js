@@ -132,7 +132,6 @@ function toggleCheck(element, tipo, limite) {
   var sel   = grupo.querySelectorAll('.check-item.selected');
   if (!element.classList.contains('selected') && sel.length >= limite) return;
   element.classList.toggle('selected');
-  /* usa data-recheio para evitar problema de textContent */
   var texto = element.dataset.recheio || element.textContent.replace('✓','').trim();
   if (element.classList.contains('selected')) {
     pedido.recheio.push(texto);

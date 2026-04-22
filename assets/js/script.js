@@ -200,8 +200,6 @@ function renderResumo() {
   document.getElementById('r-massa').textContent    = massaTexto;
   document.getElementById('r-recheio').textContent  = pedido.recheio.length ? pedido.recheio.join(' + ') : '—';
   document.getElementById('r-cobertura').textContent= pedido.cobertura || '—';
-  document.getElementById('r-preco').textContent    = formatarPreco(pedido.preco);
-  document.getElementById('r-acrescimo').style.display = pedido.acrescimo ? 'block' : 'none';
 }
 
 /* ─── WhatsApp ───────────────────────────────────────────── */
@@ -212,14 +210,28 @@ function enviarWhats() {
     return nomes[i] + ': ' + (c || '—');
   }).join(', ');
   var msg =
-    "Olá! Quero fazer um pedido na Mello's Cakes.\n\n" +
+    "Olá! Gostaria de solicitar um orçamento na Mello's Cakes.\n\n" +
     "*Tamanho:* " + pedido.tamanho + " (" + pedido.fatias + ")\n" +
     "*Massa:* " + massaWpp + "\n" +
     "*Recheio:* " + (pedido.recheio.join(' + ') || '—') + "\n" +
-    "*Cobertura:* " + pedido.cobertura + "\n" +
-    "*Valor base:* " + formatarPreco(pedido.preco) +
-    (pedido.acrescimo ? "\n*Acréscimo:* Sim, confirmar valor final." : "");
+    "*Cobertura:* " + pedido.cobertura +
+    (pedido.acrescimo ? "\n\n_Sei que itens com ⭐ têm acréscimo — aguardo confirmação do valor final._" : "");
   window.open('https://wa.me/5521983657626?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ─── Filtro de Portfólio ────────────────────────────────── */
+function filterPortfolio(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  document.querySelectorAll('.gallery-item').forEach(function(item) {
+    if (cat === 'todos' || item.dataset.cat === cat) {
+      item.classList.remove('hidden');
+    } else {
+      item.classList.add('hidden');
+    }
+  });
 }
 
 /* ─── Init ───────────────────────────────────────────────── */

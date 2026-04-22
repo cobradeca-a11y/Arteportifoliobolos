@@ -40,6 +40,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 .section-title em{font-style:italic;}
 .section-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--mint),var(--choco));margin:1rem auto 0;border-radius:2px;}
 
+/* PORTFOLIO FILTERS */
+.portfolio-filters{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.filter-btn{background:white;border:2px solid rgba(168,216,200,.6);color:var(--choco-mid);padding:.5rem 1.5rem;border-radius:100px;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.filter-btn:hover{border-color:var(--mint-dark);color:var(--choco);}
+.filter-btn.active{background:var(--choco);border-color:var(--choco);color:white;}
+.gallery-item.hidden{display:none;}
+
 /* GALLERY */
 #portfolio{padding:6rem 5vw;}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}

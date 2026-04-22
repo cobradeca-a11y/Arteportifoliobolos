@@ -121,6 +121,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 .camada-drop:hover{filter:brightness(1.12);}
 .camada-drop.drop-hl{filter:brightness(1.2);outline:2px dashed var(--mint);}
 .camada-drop.camada-preenchida .camada-label{font-weight:700;font-size:1rem;right:auto;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;letter-spacing:.04em;text-shadow:0 1px 3px rgba(0,0,0,.25);}
+#drop-c1.camada-preenchida .camada-label{top:50%;transform:translate(-50%,10%);}
+#drop-c2.camada-preenchida .camada-label{top:50%;transform:translate(-50%,15%);}
+#drop-c3.camada-preenchida .camada-label{top:50%;transform:translate(-50%,30%);}
 .camada-svg{display:block;width:100%;height:auto;overflow:visible;}
 .camada-svg rect,.camada-svg ellipse{transition:fill .35s ease;}
 .camada-label{position:absolute;right:-2.8rem;top:40%;transform:translateY(-50%);font-size:.78rem;color:rgba(90,58,34,.7);letter-spacing:.05em;white-space:nowrap;}

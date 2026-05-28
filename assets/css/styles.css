@@ -99,6 +99,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 .check-item input{display:none;}
 .check-icon{width:18px;height:18px;border-radius:5px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.7rem;}
 .check-item.selected .check-icon{background:var(--choco);border-color:var(--choco);color:white;}
+.check-heading{grid-column:1/-1;margin:.8rem 0 .1rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--choco-mid);}
+.recheio-extra{border-color:rgba(201,151,90,.6);background:#fffaf2;}
+.recheio-extra:hover{border-color:var(--gold);}
 /* ── Massa step ──────────────────────────────────────────── */
 .massa-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-bottom:1.2rem;}
 .massa-opcoes{display:flex;flex-direction:column;gap:.8rem;}

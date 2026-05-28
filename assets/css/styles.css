@@ -80,11 +80,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(253,248,242,
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 .sim-label{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--choco);margin-bottom:.4rem;}
 .sim-sub{font-size:.85rem;color:#8a6a4a;margin-bottom:1.5rem;line-height:1.5;}
-.size-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.size-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
 .size-card{border:2px solid rgba(168,216,200,.5);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:white;display:flex;flex-direction:column;justify-content:flex-end;}
 .size-card:hover{border-color:var(--mint-dark);transform:translateY(-3px);}
 .size-card.selected{border-color:var(--choco);background:rgba(61,28,14,.04);}
 .size-card .size-icon{margin-bottom:.5rem;line-height:1;display:block;}
+.size-card .size-icon--pp{font-size:2.6rem;}
 .size-card .size-icon--p{font-size:3rem;}
 .size-card .size-icon--m{font-size:3.5rem;}
 .size-card .size-icon--g{font-size:4rem;}
@@ -214,7 +215,7 @@ footer p{color:rgba(253,248,242,.6);font-size:.8rem;}
   footer{justify-content:center;text-align:center;}
   .nav-links{display:none;}
   .simulador{padding:2rem 1.5rem;}
-  .size-cards{grid-template-columns:1fr;}
+  .size-cards{grid-template-columns:1fr 1fr;}
   .check-group{grid-template-columns:1fr;}
   .massa-layout{grid-template-columns:1fr;gap:1.2rem;}
   .massa-preview{order:-1;padding-right:3rem;}

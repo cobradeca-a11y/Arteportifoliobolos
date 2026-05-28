@@ -241,22 +241,28 @@
           <div class="sim-label">Qual o tamanho?</div>
           <p class="sim-sub">3 camadas de massa · 2 camadas de recheio</p>
           <div class="size-cards">
-            <div class="size-card" onclick="selectSize(this,'Pequeno',200,'~30 fatias')">
+            <div class="size-card" onclick="selectSize(this,'PP',150,'10 a 15 fatias')">
+              <div class="size-icon size-icon--pp">🎂</div>
+              <div class="size-name">PP</div>
+              <div class="size-fatias">aro 15 · 10 a 15 fatias</div>
+              <div class="size-price">R$ 150,00</div>
+            </div>
+            <div class="size-card" onclick="selectSize(this,'Pequeno',200,'25 a 30 fatias')">
               <div class="size-icon size-icon--p">🎂</div>
               <div class="size-name">Pequeno</div>
-              <div class="size-fatias">~30 fatias</div>
+              <div class="size-fatias">aro 20 · 25 a 30 fatias</div>
               <div class="size-price">R$ 200,00</div>
             </div>
-            <div class="size-card" onclick="selectSize(this,'Médio',300,'~45 fatias')">
+            <div class="size-card" onclick="selectSize(this,'Médio',300,'40 a 45 fatias')">
               <div class="size-icon size-icon--m">🎂</div>
               <div class="size-name">Médio</div>
-              <div class="size-fatias">~45 fatias</div>
+              <div class="size-fatias">aro 25 · 40 a 45 fatias</div>
               <div class="size-price">R$ 300,00</div>
             </div>
-            <div class="size-card" onclick="selectSize(this,'Grande',500,'~70 fatias')">
+            <div class="size-card" onclick="selectSize(this,'Grande',500,'70 a 80 fatias')">
               <div class="size-icon size-icon--g">🎂</div>
               <div class="size-name">Grande</div>
-              <div class="size-fatias">~70 fatias</div>
+              <div class="size-fatias">aro 35 · 70 a 80 fatias</div>
               <div class="size-price">R$ 500,00</div>
             </div>
           </div>
@@ -337,22 +343,27 @@
           <div class="check-group" id="recheio-group">
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro chocolate blend</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro chocolate branco</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro branco c/ abacaxi</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro branco c/ geleia de morango</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de Ninho</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de Ninho c/ abacaxi</div>
+            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de Ninho c/ Nutella ⭐</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de Ninho c/ geleia de morango</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de Maracujá</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de amendoim</div>
+            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de nozes ⭐</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Beijinho de côco</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Beijinho de côco c/ abacaxi</div>
-            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brigadeiro de nozes ⭐</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite c/ ameixa</div>
             <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite c/ côco</div>
-            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite c/ nozes ⭐</div>
-            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brig. branco c/ geleia de morango</div>
-            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Brig. branco c/ geleia de maracujá</div>
-            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Ninho com Nutella ⭐</div>
-            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Ninho c/ geleia de morango</div>
-            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Ninho c/ geleia de maracujá</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite c/ nozes</div>
+            <div class="check-item" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Doce de leite c/ amendoim</div>
+            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Pistache ⭐</div>
+            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Kinder Bueno ⭐</div>
+            <div class="check-item recheio-extra" onclick="toggleCheck(this,'recheio',2)"><div class="check-icon">✓</div>Ferrero Rocher ⭐</div>
           </div>
-          <div class="obs-box">⭐ Recheios com Nutella e Nozes têm acréscimo no valor final.</div>
+          <div class="obs-box">⭐ Recheios especiais têm acréscimo no valor final: Nutella, nozes, pistache, Kinder Bueno e Ferrero Rocher.</div>
           <p class="step-error" id="e3">Por favor, selecione ao menos 1 recheio.</p>
           <div class="sim-nav">
             <button class="btn-sim btn-prev" onclick="goStep(2)">← Voltar</button>

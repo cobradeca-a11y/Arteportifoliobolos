@@ -160,6 +160,13 @@ function atualizarAcrescimo() {
 }
 
 /* ─── Navegação ──────────────────────────────────────────── */
+function scrollSimuladorTopo() {
+  var simulador = document.querySelector('.simulador');
+  if (!simulador) return;
+  var top = simulador.getBoundingClientRect().top + window.pageYOffset - 84;
+  window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+}
+
 function goStep(step) {
   if (step === 2 && !pedido.tamanho) {
     document.getElementById('e1').style.display = 'block'; return;
@@ -184,6 +191,7 @@ function goStep(step) {
   });
 
   if (step === 5) renderResumo();
+  scrollSimuladorTopo();
 }
 
 /* ─── Resumo ─────────────────────────────────────────────── */
